@@ -1,0 +1,31 @@
+.botColor {
+    background-color: var(--comment);
+}
+
+.userColor {
+    background-color: var(--purple);
+}
+
+.message {
+    display: flex;
+    min-width: 70vw;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 0.2rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.message > span {
+    padding-right: 2rem;
+}
+.message > span > img {
+    border-radius: 0.2rem;
+}
+
+.message > div > p {
+    color: var(--foreground);
+    font-family: sans-serif;
+    word-wrap: break-word;
+    font-size: 1rem;
+    opacity: 90%;
+}

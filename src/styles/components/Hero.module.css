@@ -1,0 +1,53 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 4em;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.hero > h1 {
+    font-weight: 600;
+    font-size: 5rem;
+}
+
+.hero > p {
+    color: white;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.btns {
+    display: flex;
+    gap: 2rem;
+}
+
+.btns > a {
+    text-decoration: none;
+}
+
+.btn {
+    align-self: center;
+    margin-top: 4rem;
+    padding: 1rem;
+    background-color: var(--selection);
+    border-radius: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    outline: 0.1px solid rgba(128, 128, 128, 0.441);
+    box-shadow: rgba(0, 0, 0, 0.329) 2px 2px 2px 2px;
+}
+
+.btn > pre {
+    font-size: 1rem;
+    color: var(--green) !important;
+}
+
+.btn :hover {
+    scale: 1.02;
+    opacity: 80%;
+}

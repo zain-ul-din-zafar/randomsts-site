@@ -1,0 +1,81 @@
+.navbar {
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid var(--yellow);
+    box-shadow: var(--yellow) 0px -8px 10px 2px;
+}
+
+.navbar > ul {
+    margin: 0;
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    /* responsive style for large screens   */
+    justify-content: center;
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
+    /* font-family: monospace; */
+}
+
+@media (max-width: 1000px) {
+    .navbar > ul > li:first-child {
+        flex-basis: 100% !important;
+        text-align: center !important;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+.navbar > ul > li:first-child {
+    flex-basis: auto;
+    text-align: left;
+    margin-right: auto;
+}
+
+.navbar > ul > li:first-child > a > h1 {
+    font-size: 200%;
+}
+
+.navbar > ul > li {
+    margin-right: auto;
+    list-style: none;
+    margin-right: 2rem;
+    font-size: 1.3rem;
+}
+
+.navbar > ul > li:first-child :hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.navbar > ul > li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--cyan);
+}
+
+.btn {
+    font-size: 1rem;
+    color: white;
+    background-color: var(--purple);
+    margin: 0;
+    padding: 0;
+    padding: 0.5rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    border-radius: 2px;
+    box-shadow: var(--yellow) 1px 1px 0px 1px;
+    border: none;
+}
+
+.btn:hover {
+    box-shadow: none;
+    border: 1.5px solid var(--yellow);
+    background-color: transparent;
+    cursor: pointer;
+}

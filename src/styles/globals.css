@@ -1,0 +1,91 @@
+
+/* css variables */
+:root {
+    /* color palette */
+    --background: #282a36;
+    --current-line: #44475a;
+    --selection: #44475a;
+    --foreground: #f8f8f2;
+    --comment: #6272a4;
+    --cyan: #8be9fd;
+    --green: #50fa7b;
+    --orange: #ffb86c;
+    --pink: #ff79c6;
+    --purple: #bd93f9;
+    --red: #ff5555;
+    --yellow: #f1fa8c;
+
+    --font-size: 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+    padding: 0;
+    margin: 0;
+    color: var(--purple);
+    font-size: var(--font-size);
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background);
+    background-color: var(--background);
+    min-width: 550px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: var(--green);
+}
+
+.cursor {
+    padding-top: 10px;
+    display: inline-block;
+    width: 3px;
+    margin-left: 1px;
+    height: 0.9rem;
+    background-color: var(--foreground);
+    animation: expand 0.8s infinite;
+    z-index: 999999;
+}
+
+@keyframes expand {
+    0% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.opacity-normal {
+    opacity: 40%;
+}
