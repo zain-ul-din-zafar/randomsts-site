@@ -22,9 +22,8 @@
     padding: 2rem;
     width: 100%;
     background-color: var(--selection) !important;
-    min-height: 30rem;
+    min-height: 25rem;
     font-size: 1rem;
-    border-radius: 0rem 0rem 0.5rem 0.5rem;
     /* border-radius: 0.2rem; */
     border-bottom: 0.1px solid rgba(128, 128, 128, 0.501);
     border-left: 0.1px solid rgba(128, 128, 128, 0.501);
@@ -32,8 +31,9 @@
     /* box-shadow: rgba(0, 0, 0, 0.185) 2px 2px 2px 2px; */
 }
 
+/* head */
 
-.editor > div {
+.head {
     display: flex;
     background-color: var(--selection);
     /* padding: 0.5rem; */
@@ -50,19 +50,53 @@
     border-right: 0.1px solid rgba(128, 128, 128, 0.501);
 }
 
-.editor > div > span {
+.head > span {
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 0.4rem 0rem 0rem 0rem;
     border-right: 0.2px solid rgba(128, 128, 128, 0.501);
     /* border: 1px solid green; */
 }
 
-.editor > div > span:hover {
+.head > span:hover {
     background-color: var(--comment);
     cursor: pointer;
 }
 
-
 .editor > h1 {
     padding: 1rem 0rem 1rem 0rem;
+}
+
+/* footer */
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    min-height: 8rem;
+    background-color: var(--selection);
+    border-bottom: 0.1px solid rgba(128, 128, 128, 0.501);
+    border-left: 0.1px solid rgba(128, 128, 128, 0.501);
+    border-right: 0.1px solid rgba(128, 128, 128, 0.501);
+    border-radius: 0rem 0rem 0.4rem 0.4rem;
+}
+
+.footer div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.2rem;
+}
+
+.footer > div > span {
+    color: white;
+    padding: 0.2rem;
+    font-size: 1rem;
+}
+
+.footer > div > pre {
+    color: white;
+    align-self: center;
+}
+
+.codeHighlighter {
+    background-color: var(--selection) !important;
 }
