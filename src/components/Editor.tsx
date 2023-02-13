@@ -54,8 +54,7 @@ export default function Editor() {
                     showLineNumbers={true}
                     wrapLines={true}
                     style={rainbow}
-                    wrapLongLines={true}
-                >
+                    wrapLongLines={true}>
                     {text}
                 </SyntaxHighlighter>
                 <EditorFooter />
@@ -108,8 +107,7 @@ const EditorFooter = () => {
                     wrapLines={true}
                     style={rainbow}
                     wrapLongLines={true}
-                    className={`${style.codeHighlighter}`}
-                >
+                    className={`${style.codeHighlighter}`}>
                     {`$` + text}
                 </SyntaxHighlighter>
             </div>

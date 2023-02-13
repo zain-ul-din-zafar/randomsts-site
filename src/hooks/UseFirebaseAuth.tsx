@@ -4,7 +4,7 @@ import { setPersistence, browserSessionPersistence, User } from 'firebase/auth';
 
 export function useFirebaseAuth() {
     const [user, setUser] = useState<User | null>(null);
-    
+
     useEffect(() => {
         setPersistence(auth, browserSessionPersistence)
             .then(() => {

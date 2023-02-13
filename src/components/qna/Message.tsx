@@ -13,8 +13,7 @@ export default function Message(props: MessageProps) {
             <div
                 className={`${style.message} ${
                     props.messageFrom == 'bot' ? style.botColor : style.userColor
-                }`}
-            >
+                }`}>
                 <span>
                     <Image alt="Zain-ul-din" src={'/images/avatar.png'} width={40} height={40} />
                 </span>

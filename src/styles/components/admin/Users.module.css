@@ -1,0 +1,52 @@
+.users {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: var(--selection);
+}
+
+.head {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.381);
+    padding-bottom: 0.5rem;
+}
+
+.user {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.381);
+    padding-bottom: 0.5rem;
+}
+
+.user > li:first-child {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.user > li > h5 {
+    padding-bottom: 0.4rem;
+    align-self: flex-end;
+}
+
+.user > li {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: white;
+    list-style: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.head > li {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: white;
+    list-style: none;
+}

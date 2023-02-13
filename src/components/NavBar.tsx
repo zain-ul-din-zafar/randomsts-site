@@ -44,8 +44,7 @@ export default function NavBar() {
                             <a
                                 onClick={(e) => {
                                     signUpWithGithub();
-                                }}
-                            >
+                                }}>
                                 Sign In <BsGithub />
                             </a>
                         )}
