@@ -1,34 +1,37 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer, Fragment, useState, useCallback } from 'react';
+
 import style from '@/styles/components/admin/Automation.module.css';
+import type { DocumentData } from 'firebase/firestore';
+import { addCodeSnippet } from './Automation';
 
 interface InputReducerType {
     data: {
-        title: string;
+        fileName: string;
         sourceCode: string;
         terminalCode: string;
     };
     errors: {
-        title: boolean;
-        sourceCode: boolean;
-        terminalCode: boolean;
+        fileName: Array<{ error: boolean; message: string }>;
+        sourceCode: Array<{ error: boolean; message: string }>;
+        terminalCode: Array<{ error: boolean; message: string }>;
     };
 }
 
 const initialInput: InputReducerType = {
     data: {
-        title: '',
+        fileName: '',
         sourceCode: '',
         terminalCode: ''
     },
     errors: {
-        title: false,
-        sourceCode: false,
-        terminalCode: false
+        fileName: [],
+        sourceCode: [],
+        terminalCode: []
     }
 };
 
 enum InputReducerActionTypes {
-    Title,
+    FileName,
     SourceCode,
     TerminalCommand
 }
@@ -38,47 +41,108 @@ function inputReducer(
     action: { type: InputReducerActionTypes; payload: string }
 ) {
     switch (action.type) {
-        case InputReducerActionTypes.Title:
+        case InputReducerActionTypes.FileName:
             return {
                 ...state,
-                data: { ...state.data, title: action.payload },
-                errors: { ...state.errors, title: false }
+                data: { ...state.data, fileName: action.payload.trimStart() },
+                errors: {
+                    ...state.errors,
+                    fileName: [
+                        { error: action.payload.trim().length < 2, message: 'input is too short' },
+                        {
+                            error: action.payload.trim().length == 1500,
+                            message: 'input is too long Limit: 1500'
+                        }
+                    ]
+                }
             };
         case InputReducerActionTypes.SourceCode:
             return {
                 ...state,
                 data: { ...state.data, sourceCode: action.payload },
-                errors: { ...state.errors, sourceCode: false }
+                errors: {
+                    ...state.errors,
+                    sourceCode: [
+                        { error: action.payload.trim().length < 2, message: 'input is too short' },
+                        {
+                            error: action.payload.trim().length == 1500,
+                            message: 'input is too long Limit: 1500'
+                        }
+                    ]
+                }
             };
         case InputReducerActionTypes.TerminalCommand:
             return {
                 ...state,
                 data: { ...state.data, terminalCode: action.payload },
-                errors: { ...state.errors, terminalCode: false }
+                errors: {
+                    ...state.errors,
+                    terminalCode: [
+                        { error: action.payload.trim().length < 2, message: 'input is too short' },
+                        {
+                            error: action.payload.trim().length == 1500,
+                            message: 'input is too long Limit: 1500'
+                        }
+                    ]
+                }
             };
     }
 
     return initialInput;
 }
 
-export default function AutomationInput() {
+export default function AutomationInput({
+    codeSnippets
+}: {
+    codeSnippets: Array<DocumentData>;
+}) {
     const [input, setInput] = useReducer(inputReducer, initialInput);
+    const [canSubmit, setCanSubmit] = useState<{ validInput: boolean; isDuplicate: boolean }>({
+        validInput: false,
+        isDuplicate: false
+    });
 
-    console.log(input);
+    const initPayload = useCallback(() => {
+        for (let key in InputReducerActionTypes)
+            setInput({
+                type: InputReducerActionTypes[key as keyof typeof InputReducerActionTypes],
+                payload: ''
+            });
+    }, []);
+
+    useEffect(() => {
+        initPayload();
+    }, []);
+
+    useEffect(() => {
+        setCanSubmit({
+            validInput:
+                Object.values(input.errors).filter(
+                    (err) => err.filter((metaData) => metaData.error).length > 0
+                ).length == 0,
+            isDuplicate:
+                codeSnippets.filter(
+                    (codeSnippet) =>
+                        input.data.fileName.toLowerCase() == codeSnippet.fileName.toLowerCase()
+                ).length > 0
+        });
+    }, [input, codeSnippets]);
 
     return (
         <>
             <div className={`${style.inputContainer}`}>
-                <h1>Title</h1>
+                <h1>File Name</h1>
                 <input
-                    placeholder="Add Title"
+                    placeholder="Add fileName"
+                    value={input.data.fileName}
                     onChange={(e) =>
-                        setInput({ type: InputReducerActionTypes.Title, payload: e.target.value })
+                        setInput({ type: InputReducerActionTypes.FileName, payload: e.target.value })
                     }
                 />
                 <h1>Source Code</h1>
                 <textarea
                     placeholder="Add Source Code"
+                    value={input.data.sourceCode}
                     onChange={(e) =>
                         setInput({
                             type: InputReducerActionTypes.SourceCode,
@@ -89,6 +153,7 @@ export default function AutomationInput() {
                 <h1>Terminal Command</h1>
                 <textarea
                     placeholder="Add Terminal Command"
+                    value={input.data.terminalCode}
                     onChange={(e) =>
                         setInput({
                             type: InputReducerActionTypes.TerminalCommand,
@@ -99,13 +164,43 @@ export default function AutomationInput() {
 
                 {/* error logs */}
                 <div>
-                    <h5>Error Logs 📝</h5>
-                    <p>❌ Title already exists</p>
+                    {(!canSubmit.validInput || canSubmit.isDuplicate) && <h5>Error Logs 📝</h5>}
+                    {Object.entries(input.errors).map((err) => {
+                        return err[1].map((errMetaData, key) => {
+                            return (
+                                <Fragment key={key}>
+                                    {errMetaData.error && (
+                                        <p key={key}>
+                                            <b>❌ {err[0].toString()}:</b> {errMetaData.message}
+                                        </p>
+                                    )}
+                                </Fragment>
+                            );
+                        });
+                    })}
+                    {/* checks duplicate */}
+                    {canSubmit.isDuplicate && (
+                        <p>
+                            <b>❌ FileName already exists</b>
+                        </p>
+                    )}
+                    {canSubmit.validInput && !canSubmit.isDuplicate && (
+                        <p style={{ color: 'var(--green)' }}>✔ All Set.</p>
+                    )}
                 </div>
 
                 <li>
-                    <button>Save</button>
-                    <button>Delete</button>
+                    <button
+                        style={{
+                            display:
+                                !canSubmit.isDuplicate && canSubmit.validInput ? 'flex' : 'none'
+                        }}
+                        onClick={(e) => {
+                            addCodeSnippet(input.data);
+                            initPayload();
+                        }}>
+                        Upload
+                    </button>
                 </li>
             </div>
         </>
