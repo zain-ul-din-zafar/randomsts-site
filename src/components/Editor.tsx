@@ -82,7 +82,7 @@ const EditorFooter = ({ onRun }: { onRun: ()=> void } ) => {
         speed: 35,
         onCompleteDelay: 5000,
         onCompleteBeforeDelay: () => {
-            setTimeout(()=> onRun, 3000);
+            setTimeout(()=> onRun(), 3000);
         },
         onComplete: () => {
         }
