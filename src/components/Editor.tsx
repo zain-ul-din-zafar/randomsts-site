@@ -2,7 +2,7 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { rainbow } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import style from '@/styles/components/Editor.module.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { BsTerminal } from 'react-icons/bs';
 import { useTypeWrite } from '@/hooks/UseTypeWrite';
 
@@ -22,14 +22,18 @@ export default new TodoRoute();
 const typeSpeed = 30;
 
 export default function Editor() {
+    const [showFooter, setShowFooter] = useState(false);
     const [text, setText] = useTypeWrite({
         text: code,
         speed: 40,
-        onCompleteDelay: 2000,
+        onCompleteDelay: 5000,
         onComplete: () => {
+            setShowFooter(true)
             console.log('Hey...');
         }
     });
+
+    
 
     return (
         <>
@@ -44,7 +48,7 @@ export default function Editor() {
                     wrapLongLines={true}>
                     {text}
                 </SyntaxHighlighter>
-                <EditorFooter />
+                {showFooter && <EditorFooter onRun={() => setShowFooter(false)} />}
             </div>
         </>
     );
@@ -70,12 +74,13 @@ const EditorHeader = () => {
 const terminalOutPut = `  curl https://localhost:8000 
 $  hello there`;
 
-const EditorFooter = () => {
+const EditorFooter = ({ onRun }: { onRun: ()=> void } ) => {
     const [text, setText] = useTypeWrite({
         text: terminalOutPut,
-        speed: 43,
-        onCompleteDelay: 1000,
+        speed: 35,
+        onCompleteDelay: 2000,
         onComplete: () => {
+            onRun();
             console.log('Hey...');
         }
     });
