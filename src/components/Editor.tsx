@@ -30,7 +30,7 @@ export default function Editor() {
         onCompleteDelay: 5000,
         onCompleteBeforeDelay: ()=> setShowFooter(true),
         onComplete: () => {
-            setShowFooter(true)
+            // setShowFooter(true)
             console.log('Hey...');
         }
     });
