@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
-import { firebaseConfig } from './FirebaseConfig';
+
+const firebaseConfig = {};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
