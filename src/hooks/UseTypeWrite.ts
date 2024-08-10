@@ -5,6 +5,7 @@ export type Options = {
     text: string;
     onCompleteDelay: number;
     onComplete?: () => void;
+    onCompleteBeforeDelay?: ()=> void
 };
 
 export function useTypeWrite(options: Options): [string, Dispatch<SetStateAction<string>>] {
@@ -17,6 +18,7 @@ export function useTypeWrite(options: Options): [string, Dispatch<SetStateAction
             if (idx == options.text.length) {
                 if (!timeOutState) return;
                 setTimeOutState(false);
+                options?.onCompleteBeforeDelay?.call(undefined);
                 setTimeout(() => {
                     options?.onComplete?.call(undefined);
                     setIdx(0);
