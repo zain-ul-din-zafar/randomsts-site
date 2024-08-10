@@ -19,6 +19,7 @@ class DefaultRoute extends Router {
 export default new TodoRoute();
 
 `;
+
 const typeSpeed = 30;
 
 export default function Editor() {
@@ -27,6 +28,7 @@ export default function Editor() {
         text: code,
         speed: 40,
         onCompleteDelay: 5000,
+        onCompleteBeforeDelay: ()=> setShowFooter(true),
         onComplete: () => {
             setShowFooter(true)
             console.log('Hey...');
@@ -78,10 +80,11 @@ const EditorFooter = ({ onRun }: { onRun: ()=> void } ) => {
     const [text, setText] = useTypeWrite({
         text: terminalOutPut,
         speed: 35,
-        onCompleteDelay: 2000,
+        onCompleteDelay: 5000,
+        onCompleteBeforeDelay: () => {
+            setTimeout(()=> onRun, 3000);
+        },
         onComplete: () => {
-            onRun();
-            console.log('Hey...');
         }
     });
 
